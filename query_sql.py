@@ -13,7 +13,10 @@ def test_query():
         print(f"Error: Database {db_path} not found. Run ingest_sql.py first.")
         sys.exit(1)
         
-    engine = create_engine(f'sqlite:///{db_path}')
+    # SECURITY GUARDRAIL: Connect to the SQLite database in Read-Only mode.
+    # This strictly prevents the LLM from executing destructive queries (DROP, INSERT, UPDATE, DELETE).
+    db_uri = f'sqlite:///file:{os.path.abspath(db_path)}?mode=ro'
+    engine = create_engine(db_uri, connect_args={'uri': True})
     
     # Initialize SQLDatabase wrapper from LlamaIndex
     sql_database = SQLDatabase(engine, include_tables=['companies'])
