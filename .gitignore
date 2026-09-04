@@ -1,1 +1,20 @@
-/venv
+# Environments
+venv/
+.env
+.venv/
+env/
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Databases & Local Storage
+*.sqlite3
+*.db
+graph_storage/
+
+# OS Files
+.DS_Store
+Thumbs.db
